@@ -24,7 +24,10 @@
  * Start Helper Functions
  * 
 */
-
+var sections;
+function get_all_sections(){
+    sections = document.querySelectorAll('section');
+}
 
 
 /**
@@ -34,7 +37,26 @@
 */
 
 // build the nav
+const nav_list_fragment = document.createDocumentFragment();
+const nav_list = document.querySelector('#navbar__list');
 
+get_all_sections();
+function build_nav(){
+    sections.forEach(function(section){
+        let new_li = document.createElement('li');
+
+        new_li.innerHTML=`<a class="menu__link" 
+            href="#${section.getAttribute('id')}"> 
+            ${section.dataset.nav}
+            </a>`;
+            
+        nav_list_fragment.appendChild(new_li);
+    });
+
+    nav_list.appendChild(nav_list_fragment);
+}
+
+build_nav();
 
 // Add class 'active' to section when near top of viewport
 
