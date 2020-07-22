@@ -49,7 +49,7 @@ function build_nav(){
             href="#${section.getAttribute('id')}"> 
             ${section.dataset.nav}
             </a>`;
-            
+
         nav_list_fragment.appendChild(new_li);
     });
 
@@ -62,7 +62,14 @@ build_nav();
 
 
 // Scroll to anchor ID using scrollTO event
-
+document.querySelectorAll('a.menu__link').forEach(function(link){
+    link.addEventListener('click', function(e){
+        e.preventDefault;
+        const link_target = link.getAttribute("href");
+        const section_place=document.querySelector(link_target).getBoundingClientRect();
+        window.scrollTo(section_place.x,section_place.y)
+    });
+});
 
 /**
  * End Main Functions
