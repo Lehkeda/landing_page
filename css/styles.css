@@ -15,8 +15,8 @@ html{
 }
 
 body {
-    background: rgb(136,203,171);
-    background: linear-gradient(0deg, rgba(136,203,171,1) 0%, rgba(0,13,60,1) 100%);
+    background: rgb(147, 97, 194);
+    background: linear-gradient(0deg, rgb(165, 8, 152) 0%, rgb(160, 56, 137) 100%);
     margin: 0;
     font-family: 'Merriweather', serif;
     color: #fff;
@@ -61,7 +61,7 @@ main {
 
 section {
     position: relative;
-    min-height: 80vh;
+    /* min-height: 80vh; */
 }
 
 
@@ -69,7 +69,7 @@ section {
 
 /* Navigation Styles*/
 .navbar__menu{
-    background-color: #eee;
+    background-color: rgb(109, 42, 94);
 }
 
 .navbar__menu ul {
@@ -87,13 +87,18 @@ section {
     padding: 1em;
     font-weight: bold;
     text-decoration: none;
-    color: #000;
+    color: rgb(255, 255, 255);
 }
 
 .navbar__menu .menu__link:hover {
     background: #333;
     color: #fff;
     transition: ease 0.3s all;
+}
+
+.menu__link.active {
+    background-color: #000;
+    color:#fff;
 }
 
 /* Header Styles */
@@ -107,7 +112,7 @@ section {
 
 /* Footer Styles */
 .page__footer {
-    background: #000;
+    background: rgb(71, 2, 46);
     padding: 3em;
     color: #fff;
 }
@@ -155,7 +160,7 @@ section:nth-of-type(odd) .landing__container::before {
 section:nth-of-type(even) .landing__container::before {
     content: '';
     background: rgb(255,255,255);
-    background: linear-gradient(0deg, rgba(255,255,255,.1) 0%, rgba(255,255,255,.2) 100%);
+    background: linear-gradient(0deg, rgba(121, 15, 143, 0.1) 0%, rgba(255,255,255,.2) 100%);
     position: absolute;
     top: 3em;
     right: 3em;
@@ -201,17 +206,17 @@ section:nth-of-type(3n + 1) .landing__container::after {
 /* ---- Theme State Rules ---- */
 /* Section Active Styles */
 /* Note: your-active-class class is applied through javascript. You should update the class here and in the index.html to what you set in your javascript file.  */
-section.your-active-class {
-    background: rgb(0, 0, 0);
-    background: linear-gradient(0deg, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0) 100%);
+section.active_section {
+    background: rgb(218, 16, 16);
+    background: linear-gradient(0deg, rgba(145, 21, 98, 0.952) 0%, rgba(92, 9, 71, 0) 100%);
 }
 
-section.your-active-class .landing__container::before {
+section.active_section .landing__container::before {
     opacity: 1;
     animation: rotate 4s linear 0s infinite forwards;
 }
 
-section.your-active-class .landing__container::after {
+section.active_section .landing__container::after {
     opacity: 1;
     animation: rotate 5s linear 0s infinite forwards reverse;
 }
@@ -228,4 +233,40 @@ section.your-active-class .landing__container::after {
 		           translate(-1em) 
 		           rotate(-360deg);
 	}
+}
+
+.hide_button_div{
+    position: absolute;
+    top:5rem;
+}
+
+.hide_button{
+    font-size: 1rem;
+    color:#fff;
+}
+
+.hide_button:visited{
+    color: #fff;
+}
+
+.hide_landing__container{
+    display: none;
+    overflow: hidden;
+}
+
+#top_button{
+    position: sticky;
+    border: 2px solid #fff;
+    border-radius: 3px;
+    color: #000;
+    background-color: #fff;
+    text-decoration: none;
+    padding: 1rem;
+    bottom: 2rem;
+    left: 90vw;
+    display: none;
+}
+
+#top_button:visited{
+    color: #000;
 }

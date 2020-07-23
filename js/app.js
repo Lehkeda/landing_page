@@ -17,6 +17,8 @@
  * Define Global Variables
  * 
 */
+var sections;
+const nav_list = document.querySelector('#navbar__list');
 
 
 /**
@@ -24,7 +26,7 @@
  * Start Helper Functions
  * 
 */
-var sections;
+
 function get_all_sections(){
     sections = document.querySelectorAll('section');
 }
@@ -37,11 +39,8 @@ function get_all_sections(){
 */
 
 // build the nav
-const nav_list_fragment = document.createDocumentFragment();
-const nav_list = document.querySelector('#navbar__list');
-
-get_all_sections();
 function build_nav(){
+    const nav_list_fragment = document.createDocumentFragment();
     sections.forEach(function(section){
         let new_li = document.createElement('li');
 
@@ -56,31 +55,109 @@ function build_nav(){
     nav_list.appendChild(nav_list_fragment);
 }
 
-build_nav();
+// Add class 'active' to link when near top of viewport
+function add_active_class(section, link){
+    const nav_list_links = nav_list.querySelectorAll('a.active');
 
-// Add class 'active' to section when near top of viewport
+    // remove active class from any other link
+    if(nav_list_links.length != 0){
+        nav_list_links.forEach(function (item){
+            item.classList.remove('active');
+        })
+    }
+
+    // add active to the link that relates to current section
+    link.classList.add('active');
+}
+
+function add_active_section_class(section){
+    sections.forEach(function (item){
+        item.classList.remove('active_section');
+    })
+    section.classList.add('active_section');
+}
 
 
 // Scroll to anchor ID using scrollTO event
-document.querySelectorAll('a.menu__link').forEach(function(link){
-    link.addEventListener('click', function(e){
-        e.preventDefault;
-        const link_target = link.getAttribute("href");
-        const section_place=document.querySelector(link_target).getBoundingClientRect();
-        window.scrollTo(section_place.x,section_place.y)
-    });
-});
+function scroll_to_section(e){
+    e.preventDefault;
+
+    //get current section
+    const link_target = link.getAttribute("href");
+    const section=document.querySelector(link_target);
+
+    //get selected section place
+    const section_place=section.getBoundingClientRect();
+
+    window.scrollTo(section_place.x,section_place.y);
+}
 
 /**
  * End Main Functions
  * Begin Events
  * 
 */
-
 // Build menu 
+get_all_sections();
+build_nav();
 
 // Scroll to section on link click
+document.querySelectorAll('a.menu__link').forEach(function(link){
+    link.addEventListener('click', scroll_to_section);
+});
 
-// Set sections as active
+document.addEventListener('scroll', function(){
+    //show go to the top button
+    if(window.scrollY+100 > sections[0].offsetTop){
+        document.querySelector('#top_button').style.display='inline';
+    }else{
+        document.querySelector('#top_button').style.display='none';
+    }
 
+    // Set sections as active
+    for(let i=0; i<sections.length; i++){
+        // get current link
+        const link = document.querySelector('a[href="#'+sections[i].getAttribute('id')+'"]');
 
+        const window_y=window.scrollY;
+        // last section
+        if(i+1 == sections.length){
+            if(window_y+200 > sections[i].offsetTop){ 
+                add_active_class(sections[i], link);
+                add_active_section_class(sections[i]);
+            }
+        }else{
+            if(window_y+200 > sections[i].offsetTop && window_y < sections[i+1].offsetTop){
+                add_active_class(sections[i], link);
+                add_active_section_class(sections[i]);
+            }
+        }
+    }
+});
+
+// Add hide section button
+sections.forEach(function (section){
+    section.innerHTML+= "<div class='hide_button_div'><a class='hide_button' href='#!'>Hide</a></div>";
+});
+
+// Show and hide sections
+document.querySelectorAll('.hide_button_div').forEach(function(hide_button_div){
+    let show=0;
+    let section = hide_button_div.parentElement.querySelector('.landing__container');
+    const hide_button = hide_button_div.querySelector('.hide_button');
+    hide_button.addEventListener('click', function(){
+        if(!show){
+            // Hide section
+            section.style.height='5vh';
+            section.style.overflow='hidden';
+            show=1;
+            hide_button.textContent="show";
+        }else{
+            // Show section
+            section.style.height='auto';
+            hide_button.textContent="Hide";
+            show=0;
+        }
+    })
+    
+});
