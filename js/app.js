@@ -79,7 +79,7 @@ function add_active_section_class(section){
 
 
 // Scroll to anchor ID using scrollTO event
-function scroll_to_section(e){
+function scroll_to_section(e, link){
     e.preventDefault;
 
     //get current section
@@ -103,17 +103,28 @@ build_nav();
 
 // Scroll to section on link click
 document.querySelectorAll('a.menu__link').forEach(function(link){
-    link.addEventListener('click', scroll_to_section);
+    link.addEventListener('click', scroll_to_section(this, link));
 });
 
+let nav_bar_timeout;
+
 document.addEventListener('scroll', function(){
-    //show go to the top button
     if(window.scrollY+100 > sections[0].offsetTop){
+        //show go to the top button
         document.querySelector('#top_button').style.display='inline';
+
+        //show nav bar
+        document.querySelector('.navbar__menu').style.display='block';
+
+        //hide nav bar after 5 seconds
+        nav_bar_timeout = setTimeout(function (){
+            document.querySelector('.navbar__menu').style.display='none';
+            clearTimeout(nav_bar_timeout);
+        },5000);
     }else{
         document.querySelector('#top_button').style.display='none';
     }
-
+  
     // Set sections as active
     for(let i=0; i<sections.length; i++){
         // get current link
@@ -133,6 +144,12 @@ document.addEventListener('scroll', function(){
             }
         }
     }
+});
+
+// keep navbar visible when the mouse over it
+document.querySelector('.page__header').addEventListener('mouseover', function(){
+    this.style.display='block';
+    clearTimeout(nav_bar_timeout);
 });
 
 // Add hide section button
