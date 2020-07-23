@@ -16,7 +16,7 @@ html{
 
 body {
     background: rgb(147, 97, 194);
-    background: linear-gradient(0deg, rgb(165, 8, 152) 0%, rgb(160, 56, 137) 100%);
+    background: linear-gradient(0deg, rgb(202, 130, 102) 0%, rgb(255, 189, 127) 100%);
     margin: 0;
     font-family: 'Merriweather', serif;
     color: #fff;
@@ -51,12 +51,18 @@ p {
 
 /* ---- Layout Rules ---- */
 main {
-    margin: 10vh 1em 10vh;
+    /* margin: 10vh 1em 10vh; */
 }
 
-.main-hero {
-    min-height: 40vh;
-    padding-top: 3em;
+main header {
+    width: 100vw;
+    margin: 0;
+    padding: 2em;
+    background-image: linear-gradient(100deg, rgba(0, 0, 0, 0.3) 100%, rgba(0,0,0,0.3) 100%), url('../img/laura-chouette-3RJ1HFdiJ0M-unsplash.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    box-shadow: 0 3px rgba(22, 22, 22, 0.205);
 }
 
 section {
@@ -69,7 +75,14 @@ section {
 
 /* Navigation Styles*/
 .navbar__menu{
-    background-color: rgb(109, 42, 94);
+    background-color: rgb(116, 21, 84);
+}
+
+.brand-text{
+    position: fixed;
+    left: 1rem;
+    top: 1rem;
+    font-weight: bold;
 }
 
 .navbar__menu ul {
@@ -238,6 +251,7 @@ section.active_section .landing__container::after {
 .hide_button_div{
     position: absolute;
     top:5rem;
+    left: 1rem;
 }
 
 .hide_button{
